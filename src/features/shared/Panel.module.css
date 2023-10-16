@@ -1,0 +1,15 @@
+.panel {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    border: 1px solid #555555;
+}
+
+.label {
+    padding: 3px 10px;
+    background: #333333;
+}
+
+.content {
+    overflow: auto;
+}

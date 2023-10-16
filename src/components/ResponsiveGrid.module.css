@@ -1,0 +1,16 @@
+/* 基本は横並びにする */
+.rgrid {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+/* TODO:値を変数にする */
+/* グリッド幅が一定値以下の場合は縦並びにする */
+@media (max-width: 576px) {
+    .rgrid {
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-columns: 1fr;
+    }
+}

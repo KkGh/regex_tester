@@ -1,0 +1,21 @@
+.app-root {
+    /* 画面の高さ100% - header - footer - padding */
+    height: calc(100vh - 56px - 40px - 32px);
+    font-family: 'Consolas';
+
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 5px;
+}
+
+.tab {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100%;
+}
+
+.tab-content {
+    border-bottom: 1px solid #555555;
+    border-left: 1px solid #555555;
+    border-right: 1px solid #555555;
+}

@@ -1,0 +1,55 @@
+/* アプリケーション共通スタイル */
+
+.header, .footer {
+    background: #121417;
+}
+
+body {
+    font-family: consolas;
+    font-size: 1rem;
+}
+
+label, input[type='checkbox'] {
+    cursor: pointer;
+}
+
+h2 {
+    margin-top: 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+.d-grid {
+    display: grid;
+}
+
+.g-vertical-af {
+    grid-template-rows: auto minmax(0, 1fr);
+}
+
+.g-vertical-fa {
+    grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.g-horizontal-af {
+    grid-template-columns: auto minmax(0, 1fr);
+}
+
+.g-horizontal-fa {
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.icon-container:hover {
+    color: ghostwhite;
+}
+
+/* 複数のコンポーネントで使用するスタイル */
+
+.operation-container {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100%;
+}
+
