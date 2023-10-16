@@ -10,8 +10,6 @@ import { Range } from '../shared/Range';
 
 // 汎用クラスっぽくしたいがアプリ特有の機能が多い、要検討
 
-// 仕様が不明確、空マッチの扱いが？
-// matchlist, emphasis -> 
 type Props = {
   value: string;
   matchList: Match[];
@@ -39,14 +37,12 @@ export const TextEditor = forwardRef<EditorRef, Props>((props, ref) => {
   }), [view]);
 
 
-  // CodeMirrorでマッチリストをハイライト表示する
   useEffect(() => {
     if (view) {
       highlightMatchList(view, matchList);
     }
   }, [matchList, view]);
 
-  // CodeMirrorでemphasisを強調表示する
   useEffect(() => {
     if (view) {
       highlightEmphasis(view, emphasis);
@@ -55,7 +51,7 @@ export const TextEditor = forwardRef<EditorRef, Props>((props, ref) => {
 
   const handleCreateEditor = useCallback((view: EditorView) => {
     // コンポーネントがマウントされた時点では EditorView.state === undefined なため、
-    //  useEffect()でなく onCreateEditor コールバックでviewを取得する。
+    //  useEffect でなく onCreateEditor コールバックで view を取得する。
     setView(view);
   }, []);
 

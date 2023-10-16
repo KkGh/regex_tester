@@ -1,34 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react';
-import { MATCH_DELAY, MATCH_TIMEOUT, TESTINPUT, TESTREG } from '../../constants';
-import { Regex } from '../../features/regex/Regex';
-import { HoverItemDispatch, hoverItemReducer } from "../../features/shared/hoverItemReducer";
-import { useRegexpWorker } from '../../features/regex/worker/useRegexpWorker';
-import { Range } from '../../features/shared/Range';
-import { MainLayout } from './MainLayout';
+import { MATCH_DELAY, MATCH_TIMEOUT } from '../../constants';
 import { RegCheetSheet } from '../../features/cheetsheet/RegCheetSheet';
+import { ProcessingStatus } from '../../features/expression/ProcessingStatus';
 import { RegExpression } from '../../features/expression/RegExpression';
 import { RegExtract } from "../../features/extract/RegExtract";
-import { RegFallback } from '../../features/shared/RegFallback';
 import { RegMatchList } from '../../features/match_list/RegMatchList';
+import { Regex } from '../../features/regex/Regex';
+import { useRegexpWorker } from '../../features/regex/worker/useRegexpWorker';
 import { RegReplace } from "../../features/replace/RegReplace";
+import { Range } from '../../features/shared/Range';
+import { RegFallback } from '../../features/shared/RegFallback';
+import { HoverItemDispatch, hoverItemReducer } from "../../features/shared/hoverItemReducer";
 import { RegSuggestModal } from '../../features/suggest/RegSuggestModal';
 import { RegText } from '../../features/text_editor/RegText';
 import { EditorRef } from '../../features/text_editor/TextEditor';
-import { ProcessingStatus } from '../../features/expression/ProcessingStatus';
+import { MainLayout } from './MainLayout';
 
 type Props = {
   initialReg?: RegExp;
   initialText?: string;
 };
 
-export const MainContent = ({ initialReg = TESTREG, initialText = TESTINPUT }: Props) => {
+export const MainContent = ({ initialReg, initialText = "" }: Props) => {
   // console.log("App");
   const editorRef = useRef<EditorRef>(null);
 
   const [input, setInput] = useState({
-    regArgs: { pattern: initialReg.source, flags: initialReg.flags }, // 入力コンポーネントに紐づいており、invalidな値である可能性がある。
+    regArgs: { pattern: initialReg?.source || "", flags: initialReg?.flags || "dg" }, // 入力コンポーネントに紐づいており、invalidな値の可能性がある。
     text: initialText,
     isError: false, // 正規表現のエラーの有無
   });
