@@ -5,6 +5,8 @@ import { highlightSpace, highlightTab, highlightWidespace, linebreakTheme, white
 
 // codemirrorのリソース
 
+// custom theme
+// https://www.npmjs.com/package/@uiw/react-codemirror#using-custom-theme
 export const editorOptions: CreateThemeOptions = {
   theme: "dark",
   settings: {

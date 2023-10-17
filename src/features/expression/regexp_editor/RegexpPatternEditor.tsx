@@ -6,7 +6,7 @@ import { memo } from "react";
 import { regexp } from "../../codemirror/lang-regexp";
 
 const defaultExtensions = [
-  minimalSetup(),
+  minimalSetup({ drawSelection: false }),
   // single line モード
   EditorState.transactionFilter.of(tr => tr.newDoc.lines > 1 ? [] : tr),
   // 横スクロールバーを非表示にする

@@ -10,6 +10,32 @@ import { Range } from '../shared/Range';
 
 // 汎用クラスっぽくしたいがアプリ特有の機能が多い、要検討
 
+// ハイライト用のViewPluginをCSS classごとに作成
+// TODO:リファクタリング
+const matchHighlighter = createRangeDecorator("cm-highlight-match");
+const groupHighlighter = createRangeDecorator("cm-highlight-group");
+const emphaHighlighter = createRangeDecorator("cm-highlight-emphasis");
+
+// codemirrorの拡張機能。先頭のExtensionが優先される。
+const defaultExtensions = [
+  EditorView.lineWrapping,
+
+  // キーバインディング
+  // デフォルトの indentWithTab を上書きするため、insertTabを最優先にする。
+  Prec.highest(keymap.of([insertTabCommand])),
+
+  // ハイライト用のViewPlugin、優先順位は emphasis > group > match の順。
+  emphaHighlighter.extension,
+  groupHighlighter.extension,
+  matchHighlighter.extension,
+
+  EditorView.theme({
+    ".cm-highlight-match": { backgroundColor: bgMatch },
+    ".cm-highlight-group": { backgroundColor: bgGroup },
+    ".cm-highlight-emphasis": { backgroundColor: bgEmphasis },
+  }),
+];
+
 type Props = {
   value: string;
   matchList: Match[];
@@ -72,31 +98,6 @@ export const TextEditor = forwardRef<EditorRef, Props>((props, ref) => {
     />
   );
 });
-
-// ハイライト用のViewPluginをCSS classごとに作成
-const matchHighlighter = createRangeDecorator("cm-highlight-match");
-const groupHighlighter = createRangeDecorator("cm-highlight-group");
-const emphaHighlighter = createRangeDecorator("cm-highlight-emphasis");
-
-// codemirrorの拡張機能。先頭のExtensionが優先される。
-const defaultExtensions = [
-  EditorView.lineWrapping,
-
-  // キーバインディング
-  // デフォルトの indentWithTab を上書きするため、insertTabを最優先にする。
-  Prec.highest(keymap.of([insertTabCommand])),
-
-  // ハイライト用のViewPlugin、優先順位は emphasis > group > match の順。
-  emphaHighlighter.extension,
-  groupHighlighter.extension,
-  matchHighlighter.extension,
-
-  EditorView.theme({
-    ".cm-highlight-match": { backgroundColor: bgMatch },
-    ".cm-highlight-group": { backgroundColor: bgGroup },
-    ".cm-highlight-emphasis": { backgroundColor: bgEmphasis },
-  }),
-];
 
 function highlightEmphasis(view: EditorView, emphasis?: Range) {
   view.dispatch({ effects: [emphaHighlighter.clear.of(null)] });
