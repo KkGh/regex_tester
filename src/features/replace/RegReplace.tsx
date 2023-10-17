@@ -36,9 +36,9 @@ export const RegReplace = memo(({ initialPattern = "$&", execArray, text }: Prop
   return (
     <section className="replace h-100">
       <div className="operation-container p-2">
-        <InputGroup className=" mb-2">
+        <InputGroup className="mb-2">
           <Form.Control type="text"
-            className="pattern-area form-control-sm"
+            className="form-control-sm"
             value={pattern}
             onChange={replacePatternChanged}
             placeholder="[$&]"

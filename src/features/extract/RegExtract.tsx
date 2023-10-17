@@ -27,7 +27,7 @@ export const RegExtract = memo(({ initialPattern = "[$&]\\n", execArray }: Props
       <div className="operation-container p-2">
         <InputGroup className=" mb-2">
           <Form.Control type="text"
-            className="pattern-area form-control-sm"
+            className="form-control-sm"
             value={pattern}
             onChange={patternChanged}
             placeholder="$1"
