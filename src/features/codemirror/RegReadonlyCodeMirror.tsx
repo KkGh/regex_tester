@@ -9,7 +9,7 @@ import { HighlightRange, createRangeDecorator } from "./createRangeDecorator";
 
 // Replace, Extractの出力用CodeMirrorコンポーネント
 
-const theme = createTheme({
+const readonlyTheme = createTheme({
   ...editorOptions,
   settings: {
     ...editorOptions.settings,
@@ -53,9 +53,11 @@ export const RegReadonlyCodeMirror = memo((props: Props) => {
 
   return (
     <CodeMirror
+      className="h-100" // .cm-theme要素のclass属性
+      height="100%" // .cm-editor要素のcss heightプロパティ
       readOnly
       value={value}
-      theme={theme}
+      theme={readonlyTheme}
       extensions={defaultExtensions.concat(extensions).concat(highlighter.extension)}
       basicSetup={false}
       onCreateEditor={handleCreateEditor}

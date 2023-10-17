@@ -83,6 +83,8 @@ export const TextEditor = forwardRef<EditorRef, Props>((props, ref) => {
 
   return (
     <CodeMirror
+      className="h-100" // .cm-theme要素のclass属性
+      height="100%" // .cm-editor要素のcss heightプロパティ
       value={value}
       theme={theme}
       extensions={defaultExtensions.concat(extensions)}
