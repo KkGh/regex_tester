@@ -1,4 +1,3 @@
-
 import { EditorState, Extension } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import CodeMirror, { minimalSetup } from "@uiw/react-codemirror";
@@ -8,7 +7,7 @@ import { regexp } from "../../codemirror/lang-regexp";
 const defaultExtensions = [
   minimalSetup({ drawSelection: false }),
   // single line モード
-  EditorState.transactionFilter.of(tr => tr.newDoc.lines > 1 ? [] : tr),
+  EditorState.transactionFilter.of((tr) => (tr.newDoc.lines > 1 ? [] : tr)),
   // 横スクロールバーを非表示にする
   EditorView.theme({
     ".cm-scroller": { "overflow-x": "hidden" },

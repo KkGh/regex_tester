@@ -1,4 +1,3 @@
 describe("useSingleWorker", () => {
-  it("returns", () => {
-  });
+  it("returns", () => {});
 });

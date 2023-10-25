@@ -23,13 +23,10 @@ export const RegMatch = memo(({ value, onClick }: Props) => {
         />
       </div>
 
-      {value.groups.length > 0 &&
+      {value.groups.length > 0 && (
         <div>
-          {value.groups.map((group) =>
-            <div
-              key={group.groupIndex}
-              className="py-2"
-            >
+          {value.groups.map((group) => (
+            <div key={group.groupIndex} className="py-2">
               <RegMatchNode
                 title={`Group ${group.groupIndex}`}
                 start={group.start}
@@ -39,9 +36,9 @@ export const RegMatch = memo(({ value, onClick }: Props) => {
                 titleColor={colorGroup}
               />
             </div>
-          )}
+          ))}
         </div>
-      }
+      )}
     </div>
   );
 });

@@ -13,11 +13,13 @@ type CallbackFunction<T extends any[]> = (...args: T) => void;
  * // => message:9
  * ```
  */
-export const debounce = <T extends any[]>(callback: CallbackFunction<T>, wait = 100)
-    : CallbackFunction<T> => {
-    let id = 0;
-    return (...args: T) => {
-        window.clearTimeout(id);
-        id = window.setTimeout(() => callback(...args), wait);
-    };
+export const debounce = <T extends any[]>(
+  callback: CallbackFunction<T>,
+  wait = 100
+): CallbackFunction<T> => {
+  let id = 0;
+  return (...args: T) => {
+    window.clearTimeout(id);
+    id = window.setTimeout(() => callback(...args), wait);
+  };
 };

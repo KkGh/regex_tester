@@ -2,10 +2,9 @@
 // HACK: suppress act warning
 // https://github.com/orgs/react-hook-form/discussions/4232
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { RegexpEditor } from './RegexpEditor';
-
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { RegexpEditor } from "./RegexpEditor";
 
 function setup(regexp: RegExp, changeMock = jest.fn()) {
   return render(
@@ -20,18 +19,16 @@ describe("RegPatternEditor", () => {
   beforeEach(() => {
     // 内部エラーメッセージを非表示にする
     //   TypeError: Cannot read properties of undefined (reading 'length') at textCoords
-    jest.spyOn(console, "error").mockImplementation(() => { });
-  })
+    jest.spyOn(console, "error").mockImplementation(() => {});
+  });
 
   it("can change the pattern and flags by props", async () => {
-    const { rerender } = setup(/a/gd);
+    const { rerender } = setup(/a/dg);
 
     expect(await screen.findByText("a")).toBeInTheDocument();
     expect(await screen.findByText("dg")).toBeInTheDocument();
 
-    rerender(<RegexpEditor
-      value={{ pattern: "abc", flags: "gdm" }}
-    />);
+    rerender(<RegexpEditor value={{ pattern: "abc", flags: "gdm" }} />);
 
     expect(await screen.findByText("abc")).toBeInTheDocument();
     expect(await screen.findByText("dgm")).toBeInTheDocument();
@@ -39,7 +36,7 @@ describe("RegPatternEditor", () => {
 
   it("fires onChange on flag menu item clicked", async () => {
     const mock = jest.fn();
-    setup(/a/gd, mock);
+    setup(/a/dg, mock);
 
     fireEvent.click(await screen.findByText("dg"));
     fireEvent.click(await screen.findByText(/multiline/));
@@ -50,7 +47,7 @@ describe("RegPatternEditor", () => {
 
   it("fires onChange on empty pattern", async () => {
     const mock = jest.fn();
-    setup(/a/gd, mock);
+    setup(/a/dg, mock);
 
     const cm = await screen.findByRole("textbox");
     userEvent.click(cm);
@@ -65,7 +62,7 @@ describe("RegPatternEditor", () => {
 
   it("shows error message on invalid pattern", async () => {
     const mock = jest.fn();
-    setup(/a/gd, mock);
+    setup(/a/dg, mock);
 
     const cm = await screen.findByRole("textbox");
     userEvent.click(cm);
@@ -81,12 +78,14 @@ describe("RegPatternEditor", () => {
 
   it("shows error message on invalid unicode", async () => {
     const mock = jest.fn();
-    setup(/\u{h}/gd, mock);
+    setup(/\u{h}/dg, mock);
 
     fireEvent.click(await screen.findByText("dg"));
     fireEvent.click(await screen.findByText(/unicode/));
 
-    expect(await screen.findByText("Invalid Unicode escape")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Invalid Unicode escape")
+    ).toBeInTheDocument();
     await new Promise(process.nextTick);
     expect(mock).toBeCalledWith(null, "\\u{h}", "dgu");
   });

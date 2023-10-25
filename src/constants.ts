@@ -1,7 +1,14 @@
-import { Extension, Prec } from '@codemirror/state';
+import { Extension, Prec } from "@codemirror/state";
 import { CreateThemeOptions } from "@uiw/codemirror-themes";
 import { createContext } from "react";
-import { highlightSpace, highlightTab, highlightWidespace, linebreakTheme, whitespaceTheme, wideSpaceTheme } from "./features/codemirror/highlightInvisibles";
+import {
+  highlightSpace,
+  highlightTab,
+  highlightWidespace,
+  linebreakTheme,
+  whitespaceTheme,
+  wideSpaceTheme,
+} from "./features/codemirror/highlightInvisibles";
 
 // codemirrorのリソース
 
@@ -11,9 +18,9 @@ export const editorOptions: CreateThemeOptions = {
   theme: "dark",
   settings: {
     caret: "#eeeeee",
-    fontFamily: "Consolas"
+    fontFamily: "Consolas",
   },
-  styles: []
+  styles: [],
 };
 
 export const EditorThemeContext = createContext<Extension>({ extension: [] });
@@ -39,14 +46,16 @@ export const EXTRACT_DELAY = 100;
 // テスト用データ
 
 export const TESTREG_HUGE = /./dgm;
-export const TESTINPUT_HUGE = Array(1000).fill(null).map(() => `1234567890`).join("\n");
+export const TESTINPUT_HUGE = Array(1000)
+  .fill(null)
+  .map(() => `1234567890`)
+  .join("\n");
 
 export const TESTREG_DANGER = /^(a|a)*$/dg;
 export const TESTINPUT_DANGER = "aaaaaaaaaaaaaaaaaaaaaaaZ";
 
 export const TESTREG = /"(\w+)": (".+"|\w+)/dg;
-export const TESTINPUT =
-`{
+export const TESTINPUT = `{
   "people": [
     {
       "name": "John Doe",

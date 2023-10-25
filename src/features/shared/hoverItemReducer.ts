@@ -5,16 +5,20 @@ type HoverItemState = {
   item?: Range;
 };
 
-type HoverItemAction = {
-  type: "enter",
-  newItem: Range;
-} | {
-  type: "leave";
-};
+type HoverItemAction =
+  | {
+      type: "enter";
+      newItem: Range;
+    }
+  | {
+      type: "leave";
+    };
 
 // reducer関数はステートとアクションを受け取り、新しいステートを返す
-export const hoverItemReducer = (state: HoverItemState, action: HoverItemAction)
-  : HoverItemState => {
+export const hoverItemReducer = (
+  state: HoverItemState,
+  action: HoverItemAction
+): HoverItemState => {
   switch (action.type) {
     case "enter":
       return { item: action.newItem };
@@ -25,6 +29,8 @@ export const hoverItemReducer = (state: HoverItemState, action: HoverItemAction)
   }
 };
 
-export const HoverItemDispatch = createContext<Dispatch<HoverItemAction>>(() => {
-  throw new Error("HoverItemDispatch context must be provided");
-});
+export const HoverItemDispatch = createContext<Dispatch<HoverItemAction>>(
+  () => {
+    throw new Error("HoverItemDispatch context must be provided");
+  }
+);

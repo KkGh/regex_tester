@@ -1,12 +1,10 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { RegExtract } from './RegExtract';
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { RegExtract } from "./RegExtract";
 
 function setup(matches: RegExpMatchArray[], initialPattern: string) {
   return render(
-    <RegExtract
-      execArray={matches}
-      initialPattern={initialPattern}
-    />);
+    <RegExtract execArray={matches} initialPattern={initialPattern} />
+  );
 }
 
 describe("RegExtract", () => {
@@ -35,4 +33,3 @@ describe("RegExtract", () => {
     expect(outputTextbox).toHaveTextContent("");
   });
 });
-
