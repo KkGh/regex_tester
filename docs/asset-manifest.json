@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.a7c69eda.css",
-    "main.js": "/static/js/main.a2faa00b.js",
-    "static/js/787.092dcbe8.chunk.js": "/static/js/787.092dcbe8.chunk.js",
-    "index.html": "/index.html",
-    "main.a7c69eda.css.map": "/static/css/main.a7c69eda.css.map",
-    "main.a2faa00b.js.map": "/static/js/main.a2faa00b.js.map",
-    "787.092dcbe8.chunk.js.map": "/static/js/787.092dcbe8.chunk.js.map"
+    "main.css": "/regex_tester/static/css/main.a7c69eda.css",
+    "main.js": "/regex_tester/static/js/main.00192324.js",
+    "static/js/787.092dcbe8.chunk.js": "/regex_tester/static/js/787.092dcbe8.chunk.js",
+    "index.html": "/regex_tester/index.html",
+    "main.a7c69eda.css.map": "/regex_tester/static/css/main.a7c69eda.css.map",
+    "main.00192324.js.map": "/regex_tester/static/js/main.00192324.js.map",
+    "787.092dcbe8.chunk.js.map": "/regex_tester/static/js/787.092dcbe8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a7c69eda.css",
-    "static/js/main.a2faa00b.js"
+    "static/js/main.00192324.js"
   ]
 }
