@@ -20,11 +20,14 @@ const characterClasses = [
   ["\\f", "改ページ"],
   ["[\\b]", "バックスペース"],
   ["\\0", "NULL文字"],
-  ["\\cX", "キャレット記法を使用した制御文字：\"\\X\"にはA-Zの文字が入ります"],
+  ["\\cX", 'キャレット記法を使用した制御文字："\\X"にはA-Zの文字が入ります'],
   ["\\xhh", "2桁の16進数文字コード"],
   ["\\uhhhh", "4桁の16進数ユニコード文字"],
-  ["\\u{hhhh} \\u{hhhhh}", "16進数ユニコード文字（uフラグがセットされた時のみ）"],
-  ["x|y", "論理和：\"x\" または \"y\""],
+  [
+    "\\u{hhhh} \\u{hhhhh}",
+    "16進数ユニコード文字（uフラグがセットされた時のみ）",
+  ],
+  ["x|y", '論理和："x" または "y"'],
   ["\\", "エスケープ：\\^$.*+?()[]{}"],
 ];
 
@@ -47,7 +50,10 @@ const groupsAndBackreferences = [
   ["(?<Name>x)", "名前付きキャプチャグループ"],
   ["(?:x)", "非キャプチャグループ"],
   ["\\n", "n番目の括弧の部分に一致した部分文字列への後方参照"],
-  ["\\k<Name>", "<Name>で指定された名前付きキャプチャグループに一致した部分文字列への後方参照"],
+  [
+    "\\k<Name>",
+    "<Name>で指定された名前付きキャプチャグループに一致した部分文字列への後方参照",
+  ],
 ];
 
 const quantifiers = [
@@ -63,7 +69,10 @@ const quantifiers = [
 const unicodeProperty = [
   ["\\p{...}", "ユニコードプロパティで指定された文字"],
   ["\\P{...}", "\\p{...}に一致しない文字"],
-  ["\\p{name=value}", "ユニコードプロパティ名とユニコードプロパティ値で指定された文字"],
+  [
+    "\\p{name=value}",
+    "ユニコードプロパティ名とユニコードプロパティ値で指定された文字",
+  ],
   ["\\P{name=value}", "\\p{name=value}に一致しない文字"],
 ];
 
@@ -74,7 +83,7 @@ const replacement = [
   ["$'", "一致した部分文字列の直前の文字列を挿入"],
   ["$n", "n番目のキャプチャグループ。nは100未満の正の整数です。"],
   ["$<Name>", "キャプチャグループに名前を指定します。"],
-]
+];
 
 const createTable = (list: string[][], title: string, description?: string) => {
   return (
@@ -87,16 +96,18 @@ const createTable = (list: string[][], title: string, description?: string) => {
           <th>文字</th><th>意味</th>
         </thead> */}
           <tbody>
-            {list.map(r => <tr key={r[0]}>
-              <td width={80}>{r[0]}</td>
-              <td>{r[1]}</td>
-            </tr>)}
+            {list.map((r) => (
+              <tr key={r[0]}>
+                <td width={80}>{r[0]}</td>
+                <td>{r[1]}</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
     </div>
   );
-}
+};
 
 export const RegCheetSheet = memo(() => {
   return (
@@ -109,8 +120,16 @@ export const RegCheetSheet = memo(() => {
         {createTable(otherAssertions, "その他のアサーション")}
         {createTable(groupsAndBackreferences, "グループと後方参照")}
         {createTable(quantifiers, "数量詞")}
-        {createTable(unicodeProperty, "ユニコード文字プロパティ", "uフラグが必要です。")}
-        {createTable(replacement, "特殊な置換パターン", "replaceで使用します。")}
+        {createTable(
+          unicodeProperty,
+          "ユニコード文字プロパティ",
+          "uフラグが必要です。"
+        )}
+        {createTable(
+          replacement,
+          "特殊な置換パターン",
+          "replaceで使用します。"
+        )}
       </div>
     </section>
   );

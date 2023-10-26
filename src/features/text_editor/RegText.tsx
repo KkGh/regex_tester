@@ -1,10 +1,10 @@
 import createTheme from "@uiw/codemirror-themes";
 import { memo } from "react";
 import { Spaced } from "../../components/Spaced";
-import { commonExtensions, editorOptions, } from "../../constants";
+import { commonExtensions, editorOptions } from "../../constants";
 import { Match } from "../regex/Regex";
 import { Panel } from "../shared/Panel";
-import { Range } from '../shared/Range';
+import { Range } from "../shared/Range";
 import { EditorRef, TextEditor } from "./TextEditor";
 
 const editorTheme = createTheme(editorOptions);
@@ -18,7 +18,6 @@ type Props = {
 };
 
 export const RegText = memo(({ editorRef, matchList, ...rest }: Props) => {
-
   return (
     <section className="input h-100">
       <Panel

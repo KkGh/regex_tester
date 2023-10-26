@@ -1,11 +1,11 @@
-import { useEffect, useReducer } from 'react';
-import { createRegexpWorker } from './createRegexpWorker';
-import { RegExpWorkerRequest, RegExpWorkerResponse } from './regexp.worker';
-import { useDebounceCallback } from '../../../hooks/useDebounceCallback';
-import { useSingleWorker } from '../../../hooks/useSingleWorker';
+import { useEffect, useReducer } from "react";
+import { createRegexpWorker } from "./createRegexpWorker";
+import { RegExpWorkerRequest, RegExpWorkerResponse } from "./regexp.worker";
+import { useDebounceCallback } from "../../../hooks/useDebounceCallback";
+import { useSingleWorker } from "../../../hooks/useSingleWorker";
 
 type RegexpWorkerArgs = {
-  reg: RegExp | null, // エラー時にはnullが入る
+  reg: RegExp | null; // エラー時にはnullが入る
   text: string;
   isEmpty: boolean;
   delay?: number;
@@ -19,14 +19,15 @@ export const useRegexpWorker = ({
   isEmpty,
   delay = 100,
   timeout = 300,
-}: RegexpWorkerArgs
-) => {
-
+}: RegexpWorkerArgs) => {
   // （pattern, flags, isError を受け取るパターンと、
   // nullableなRegExp, isEmptyを受け取るパターンがある、どちらが良い？）
 
   const debounce = useDebounceCallback(delay);
-  const { status, startTask } = useSingleWorker<RegExpWorkerRequest, RegExpWorkerResponse>(createRegexpWorker);
+  const { status, startTask } = useSingleWorker<
+    RegExpWorkerRequest,
+    RegExpWorkerResponse
+  >(createRegexpWorker);
   const [state, dispatch] = useReducer(reducer, {
     currentText: text,
     execArray: [],
@@ -46,13 +47,15 @@ export const useRegexpWorker = ({
             type: "skip",
             currentText: text,
           });
-        }
-        else {
-          startTask({
-            action: "matchAll",
-            regexp: reg,
-            input: text,
-          }, timeout);
+        } else {
+          startTask(
+            {
+              action: "matchAll",
+              regexp: reg,
+              input: text,
+            },
+            timeout
+          );
 
           dispatch({ type: "start" });
         }
@@ -63,14 +66,14 @@ export const useRegexpWorker = ({
   useEffect(() => {
     if (status.result) {
       dispatch({
-        type: 'done',
+        type: "done",
         currentText: text,
         execArray: status.result.result,
         elapsed: status.result.elapsed,
       });
     } else if (status.errorMessage) {
       dispatch({
-        type: 'error',
+        type: "error",
         currentText: text,
         errorMessage: status.errorMessage,
       });
@@ -89,27 +92,31 @@ type State = {
   elapsed: number;
   running: boolean;
   errorMessage: string;
-}
+};
 
-type Action = {
-  type: "skip";
-  currentText: string;
-} | {
-  type: "start";
-} | {
-  type: "done";
-  currentText: string;
-  execArray: RegExpMatchArray[];
-  elapsed: number;
-} | {
-  type: "error";
-  currentText: string;
-  errorMessage: string;
-}
+type Action =
+  | {
+      type: "skip";
+      currentText: string;
+    }
+  | {
+      type: "start";
+    }
+  | {
+      type: "done";
+      currentText: string;
+      execArray: RegExpMatchArray[];
+      elapsed: number;
+    }
+  | {
+      type: "error";
+      currentText: string;
+      errorMessage: string;
+    };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'skip':
+    case "skip":
       return {
         currentText: action.currentText,
         execArray: [],
@@ -117,12 +124,12 @@ const reducer = (state: State, action: Action): State => {
         running: false,
         errorMessage: "",
       };
-    case 'start':
+    case "start":
       return {
         ...state,
-        running: true
-      }
-    case 'done':
+        running: true,
+      };
+    case "done":
       return {
         currentText: action.currentText,
         execArray: action.execArray,
@@ -130,7 +137,7 @@ const reducer = (state: State, action: Action): State => {
         running: false,
         errorMessage: "",
       };
-    case 'error':
+    case "error":
       return {
         currentText: action.currentText,
         execArray: [],

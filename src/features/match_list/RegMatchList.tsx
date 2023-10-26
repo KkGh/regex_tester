@@ -7,7 +7,7 @@ import { RegMatch } from "./RegMatch";
 type Props = {
   matchList: Match[];
   onItemClick?: (range: Range) => void;
-}
+};
 
 export const RegMatchList = memo(({ matchList, onItemClick }: Props) => {
   return (
@@ -15,12 +15,9 @@ export const RegMatchList = memo(({ matchList, onItemClick }: Props) => {
       <Virtuoso
         className="h-100"
         totalCount={matchList.length}
-        itemContent={index =>
-          <RegMatch
-            value={matchList[index]}
-            onClick={onItemClick}
-          />
-        }
+        itemContent={(index) => (
+          <RegMatch value={matchList[index]} onClick={onItemClick} />
+        )}
       />
     </section>
   );

@@ -25,15 +25,20 @@ export const RegSuggest = ({ text, matches, onClickSuggestion }: Props) => {
     setSuggestedList(uniqueSuggestions);
   }, [text, matches]);
 
-  const handleClick = useCallback((pattern: string) => {
-    onClickSuggestion?.(pattern);
-  }, [onClickSuggestion]);
+  const handleClick = useCallback(
+    (pattern: string) => {
+      onClickSuggestion?.(pattern);
+    },
+    [onClickSuggestion]
+  );
 
   return (
     <div>
       <p>Suggets RegExp patterns from current matches.</p>
 
-      {matches.length === 0 ? <div className="text-secondary">no matches</div> :
+      {matches.length === 0 ? (
+        <div className="text-secondary">no matches</div>
+      ) : (
         <>
           <p>{suggestions.length} suggestions:</p>
           <ListGroup>
@@ -47,15 +52,12 @@ export const RegSuggest = ({ text, matches, onClickSuggestion }: Props) => {
                   <span className="fw-bold">{item.count}</span>
                   <span className="text-secondary small"> matches in Text</span>
                 </p>
-                <p className="small">
-                  {item.regexp.source}
-                </p>
+                <p className="small">{item.regexp.source}</p>
               </ListGroupItem>
-            ))
-            }
+            ))}
           </ListGroup>
-        </>}
-
+        </>
+      )}
     </div>
   );
 };
@@ -64,10 +66,12 @@ function suggestPatterns(matches: string[], text: string, limit: number) {
   // O(N^2) のペアができるため個数制限する
   const pairs = [...take(pairwise(matches), limit)];
 
-  const patterns = pairs.map(pair => suggestFromText(pair[0], pair[1]).source);
+  const patterns = pairs.map(
+    (pair) => suggestFromText(pair[0], pair[1]).source
+  );
 
-  const uniqueSuggestions = [...new Set(patterns)]  // 重複排除
-    .map(p => {
+  const uniqueSuggestions = [...new Set(patterns)] // 重複排除
+    .map((p) => {
       const r = new RegExp(p, "g");
       return {
         regexp: r,

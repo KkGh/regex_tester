@@ -13,52 +13,59 @@ type Props = {
 };
 
 export const MainLayout = memo((props: Props) => {
-  const { regExpression, regText, regMatchList, regReplace, regExtract, regCheetSheet } = props;
+  const {
+    regExpression,
+    regText,
+    regMatchList,
+    regReplace,
+    regExtract,
+    regCheetSheet,
+  } = props;
   const tabs = [
     {
       eventKey: "match",
       title: "Match",
-      node: regMatchList
+      node: regMatchList,
     },
     {
       eventKey: "replace",
       title: "Replace",
-      node: regReplace
+      node: regReplace,
     },
     {
       eventKey: "extract",
       title: "Extract",
-      node: regExtract
+      node: regExtract,
     },
     {
       eventKey: "info",
       title: "Info",
-      node: regCheetSheet
+      node: regCheetSheet,
     },
   ];
 
-  const operation =
+  const operation = (
     <div className={styles.tab}>
-      <Tab.Container
-        defaultActiveKey={tabs[0].eventKey}
-        transition={false}
-      >
+      <Tab.Container defaultActiveKey={tabs[0].eventKey} transition={false}>
         <Nav variant="tabs" justify>
-          {tabs.map(t =>
+          {tabs.map((t) => (
             <Nav.Item key={t.eventKey}>
-              <Nav.Link eventKey={t.eventKey} as="button">{t.title}</Nav.Link>
+              <Nav.Link eventKey={t.eventKey} as="button">
+                {t.title}
+              </Nav.Link>
             </Nav.Item>
-          )}
+          ))}
         </Nav>
         <Tab.Content className={`h-100 ${styles["tab-content"]}`}>
-          {tabs.map(t =>
-            <Tab.Pane key={t.eventKey} eventKey={t.eventKey} className="h-100">{t.node}</Tab.Pane>
-          )}
+          {tabs.map((t) => (
+            <Tab.Pane key={t.eventKey} eventKey={t.eventKey} className="h-100">
+              {t.node}
+            </Tab.Pane>
+          ))}
         </Tab.Content>
       </Tab.Container>
     </div>
-    ;
-
+  );
   return (
     <div className={styles["app-root"]}>
       {regExpression}

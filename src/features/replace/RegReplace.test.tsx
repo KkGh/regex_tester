@@ -1,13 +1,10 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { RegReplace } from './RegReplace';
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { RegReplace } from "./RegReplace";
 
 function setup(text: string, matches: RegExpMatchArray[], initPattern: string) {
   return render(
-    <RegReplace
-      text={text}
-      execArray={matches}
-      initialPattern={initPattern}
-    />);
+    <RegReplace text={text} execArray={matches} initialPattern={initPattern} />
+  );
 }
 
 describe("RegReplace", () => {
@@ -46,8 +43,11 @@ describe("RegReplace", () => {
     const [patternTextbox, outputTextbox] = screen.getAllByRole("textbox");
     expect(outputTextbox).toHaveTextContent("[abc],[123]");
 
-    await waitFor(() => expect(screen.getByText("[abc]")).toHaveClass("cm-replaced"));
-    await waitFor(() => expect(screen.getByText("[123]")).toHaveClass("cm-replaced"));
+    await waitFor(() =>
+      expect(screen.getByText("[abc]")).toHaveClass("cm-replaced")
+    );
+    await waitFor(() =>
+      expect(screen.getByText("[123]")).toHaveClass("cm-replaced")
+    );
   });
 });
-

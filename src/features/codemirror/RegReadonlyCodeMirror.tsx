@@ -9,18 +9,15 @@ import { HighlightRange, createRangeDecorator } from "./createRangeDecorator";
 
 // Replace, Extractの出力用CodeMirrorコンポーネント
 
-const theme = createTheme({
+const readonlyTheme = createTheme({
   ...editorOptions,
   settings: {
     ...editorOptions.settings,
-    background: "#272b30"
-  }
+    background: "#272b30",
+  },
 });
 
-const defaultExtensions = [
-  EditorView.lineWrapping,
-  keymap.of(searchKeymap),
-];
+const defaultExtensions = [EditorView.lineWrapping, keymap.of(searchKeymap)];
 
 type Props = {
   value: string;
@@ -30,17 +27,25 @@ type Props = {
 };
 
 export const RegReadonlyCodeMirror = memo((props: Props) => {
-  const { value, highlightClassName = "", highlightRanges = [], extensions = [] } = props;
+  const {
+    value,
+    highlightClassName = "",
+    highlightRanges = [],
+    extensions = [],
+  } = props;
   const [view, setView] = useState<EditorView>();
-  const highlighter = useMemo(() => createRangeDecorator(highlightClassName), [highlightClassName]);
+  const highlighter = useMemo(
+    () => createRangeDecorator(highlightClassName),
+    [highlightClassName]
+  );
 
   useEffect(() => {
     if (view && highlightRanges.length > 0) {
       view.dispatch({
         effects: [
           highlighter.clear.of(null),
-          highlighter.add.of(highlightRanges)
-        ]
+          highlighter.add.of(highlightRanges),
+        ],
       });
     }
   }, [highlightRanges, highlighter.add, highlighter.clear, view]);
@@ -53,10 +58,14 @@ export const RegReadonlyCodeMirror = memo((props: Props) => {
 
   return (
     <CodeMirror
+      className="h-100" // .cm-theme要素のclass属性
+      height="100%" // .cm-editor要素のcss heightプロパティ
       readOnly
       value={value}
-      theme={theme}
-      extensions={defaultExtensions.concat(extensions).concat(highlighter.extension)}
+      theme={readonlyTheme}
+      extensions={defaultExtensions
+        .concat(extensions)
+        .concat(highlighter.extension)}
       basicSetup={false}
       onCreateEditor={handleCreateEditor}
     />

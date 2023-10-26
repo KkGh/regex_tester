@@ -11,36 +11,42 @@ type Props = {
   execArray: RegExpMatchArray[];
 };
 
-export const RegExtract = memo(({ initialPattern = "[$&]\\n", execArray }: Props) => {
-  const [pattern, setPattern] = useState(initialPattern);
-  const debouncedPattern = useDebounce(pattern, EXTRACT_DELAY);
-  const result = useMemo(() => {
-    return Regex.extract(execArray, convertEscapeSequence(debouncedPattern));
-  }, [execArray, debouncedPattern]);
+export const RegExtract = memo(
+  ({ initialPattern = "[$&]\\n", execArray }: Props) => {
+    const [pattern, setPattern] = useState(initialPattern);
+    const debouncedPattern = useDebounce(pattern, EXTRACT_DELAY);
+    const result = useMemo(() => {
+      return Regex.extract(execArray, convertEscapeSequence(debouncedPattern));
+    }, [execArray, debouncedPattern]);
 
-  const patternChanged = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setPattern(event.target.value);
-  }, []);
+    const patternChanged = useCallback(
+      (event: ChangeEvent<HTMLInputElement>) => {
+        setPattern(event.target.value);
+      },
+      []
+    );
 
-  return (
-    <section className="extract h-100">
-      <div className="operation-container p-2">
-        <InputGroup className=" mb-2">
-          <Form.Control type="text"
-            className="pattern-area form-control-sm"
-            value={pattern}
-            onChange={patternChanged}
-            placeholder="$1"
-          />
-        </InputGroup>
+    return (
+      <section className="extract h-100">
+        <div className="operation-container p-2">
+          <InputGroup className=" mb-2">
+            <Form.Control
+              type="text"
+              className="form-control-sm"
+              value={pattern}
+              onChange={patternChanged}
+              placeholder="$1"
+            />
+          </InputGroup>
 
-        <div className="overflow-y-auto">
-          <RegReadonlyCodeMirror
-            value={result}
-            extensions={commonExtensions}
-          />
+          <div className="overflow-y-auto">
+            <RegReadonlyCodeMirror
+              value={result}
+              extensions={commonExtensions}
+            />
+          </div>
         </div>
-      </div>
-    </section>
-  );
-});
+      </section>
+    );
+  }
+);

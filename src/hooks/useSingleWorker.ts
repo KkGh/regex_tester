@@ -42,37 +42,40 @@ export function useSingleWorker<T, TResult>(workerFactory: () => Worker) {
     setRunning(false);
   }, []);
 
-  const startTask = useCallback((message: T, timeout: number) => {
-    // 処理中のworkerを強制終了
-    if (timeoutRef.current) {
-      cleanup(true, "restart");
-    }
+  const startTask = useCallback(
+    (message: T, timeout: number) => {
+      // 処理中のworkerを強制終了
+      if (timeoutRef.current) {
+        cleanup(true, "restart");
+      }
 
-    if (workerRef.current === null) {
-      workerRef.current = workerFactory();
-      // workerID.current = workerID.current + 1;
-    }
+      if (workerRef.current === null) {
+        workerRef.current = workerFactory();
+        // workerID.current = workerID.current + 1;
+      }
 
-    // タイムアウトで強制終了
-    timeoutRef.current = setTimeout(() => {
-      cleanup(true, "timeout");
-    }, timeout);
+      // タイムアウトで強制終了
+      timeoutRef.current = setTimeout(() => {
+        cleanup(true, "timeout");
+      }, timeout);
 
-    workerRef.current.onmessage = (e) => {
-      console.log("onmessage");
-      
-      setResult(e.data);
-      cleanup(false);
-    };
+      workerRef.current.onmessage = (e) => {
+        console.log("onmessage");
 
-    workerRef.current.onerror = e => {
-      cleanup(false, e.message);
-    };
+        setResult(e.data);
+        cleanup(false);
+      };
 
-    workerRef.current.postMessage(message);
-    setRunning(true);
-    setErrorMessage("");
-  }, [cleanup, workerFactory]);
+      workerRef.current.onerror = (e) => {
+        cleanup(false, e.message);
+      };
+
+      workerRef.current.postMessage(message);
+      setRunning(true);
+      setErrorMessage("");
+    },
+    [cleanup, workerFactory]
+  );
 
   return {
     status: {
@@ -80,6 +83,6 @@ export function useSingleWorker<T, TResult>(workerFactory: () => Worker) {
       errorMessage,
       running,
     },
-    startTask
+    startTask,
   };
 }

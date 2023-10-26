@@ -1,6 +1,6 @@
-import { renderHook, waitFor } from '@testing-library/react';
-import { createRegexpWorker } from './createRegexpWorker';
-import { useRegexpWorker } from './useRegexpWorker';
+import { renderHook, waitFor } from "@testing-library/react";
+import { createRegexpWorker } from "./createRegexpWorker";
+import { useRegexpWorker } from "./useRegexpWorker";
 
 jest.mock("./createRegexpWorker");
 const mockFunc = createRegexpWorker as jest.Mock;
@@ -30,15 +30,20 @@ describe("useRegexpWorker", () => {
   });
 
   it("use Web Worker", async () => {
-    const { result } = renderHook(() => useRegexpWorker({
-      reg: /\w+/gd, isEmpty: false, text: "test string", delay: 1
-    }));
+    const { result } = renderHook(() =>
+      useRegexpWorker({
+        reg: /\w+/dg,
+        isEmpty: false,
+        text: "test string",
+        delay: 1,
+      })
+    );
 
     await waitFor(() => {
       expect(postMessage).toBeCalledWith({
         action: "matchAll",
         input: "test string",
-        regexp: /\w+/dg
+        regexp: /\w+/dg,
       });
     });
     expect(mockFunc).toBeCalled();
