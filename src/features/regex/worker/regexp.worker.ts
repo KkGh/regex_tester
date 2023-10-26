@@ -41,7 +41,12 @@ export function regexpFunc() {
   // from: RegUtils.doMatch
   function doMatch(input: string, regexp: RegExp): RegExpMatchArray[] {
     if (regexp.global) {
-      return [...input.matchAll(regexp)];
+      // web worker 内では spread operator を使用できない：
+      // spread operator はES6の新機能であるため、ビルド時にpolyfillに変換される。
+      // しかし、web worker 内部は独自のコンテキストを持っているため、
+      // 別のコンテキストにある polyfill にアクセスしようとして ReferenceError が発生してしまう。
+      // 従って、 spread operator の代わりに Array.from を使用しなければならない。
+      return Array.from(input.matchAll(regexp));
     } else {
       const m = input.match(regexp);
       return m !== null ? [m] : [];
