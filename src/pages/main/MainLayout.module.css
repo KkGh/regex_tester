@@ -1,6 +1,6 @@
 .app-root {
-    /* 画面の高さ100% - header - footer - padding */
-    height: calc(100vh - 56px - 40px - 32px);
+    /* 画面の高さ: 100% - header - padding */
+    height: calc(100vh - 56px - 32px);
     font-family: 'Consolas';
 
     display: grid;

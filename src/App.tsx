@@ -14,12 +14,6 @@ const App = () => {
       <main className="py-3">
         <MainContent initialReg={TESTREG} initialText={TESTINPUT} />
       </main>
-
-      <footer className="p-2 text-center footer">
-        <div>
-          <small>&copy; kos tools. All rights reserved.</small>
-        </div>
-      </footer>
     </div>
   );
 };
