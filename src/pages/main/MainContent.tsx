@@ -111,7 +111,7 @@ export const MainContent = ({ initialReg, initialText = "" }: Props) => {
     <RegExpression
       value={input.regArgs}
       onChange={handleRegexChange}
-      tools={[suggester, processingStatus]}
+      tools={[processingStatus, suggester]}
     />
   );
 

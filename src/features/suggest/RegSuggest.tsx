@@ -34,7 +34,7 @@ export const RegSuggest = ({ text, matches, onClickSuggestion }: Props) => {
 
   return (
     <div>
-      <p>Suggets RegExp patterns from current matches.</p>
+      <p>Suggests RegExp patterns from current matches.</p>
 
       {matches.length === 0 ? (
         <div className="text-secondary">no matches</div>
